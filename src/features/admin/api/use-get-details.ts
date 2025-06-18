@@ -118,3 +118,63 @@ export const useGetCourseSubjects = (courseId: string) => {
   });
   return query;
 };
+
+export const useGetSinglePaper = (paperId:string) => {
+  const query = useQuery({
+    queryKey: ["paper", paperId],
+    queryFn: async () => {
+      const response = await client.api.admin.papers[":paperId"]["$get"]({
+        param: { paperId },
+      });
+
+      if (!response.ok) {
+        throw new Error("Fetching Paper failed");
+      }
+
+      const paper = await response.json();
+
+      return paper;
+    },
+  });
+  return query;
+}
+
+export const useGetSingleSubject = (subjectId:string) => {
+  const query = useQuery({
+    queryKey: ["subject", subjectId],
+    queryFn: async () => {
+      const response = await client.api.admin.subjects[":subjectId"]["$get"]({
+        param: { subjectId },
+      });
+
+      if (!response.ok) {
+        throw new Error("Fetching Subject failed");
+      }
+
+      const subject = await response.json();
+
+      return subject;
+    },
+  });
+  return query;
+}
+
+export const useGetSingleBranch = (branchId:string) => {
+  const query = useQuery({
+    queryKey: ["branch", branchId],
+    queryFn: async () => {
+      const response = await client.api.admin.branches[":branchId"]["$get"]({
+        param: { branchId },
+      });
+
+      if (!response.ok) {
+        throw new Error("Fetching Branch failed");
+      }
+
+      const branch = await response.json();
+
+      return branch;
+    },
+  });
+  return query;
+}

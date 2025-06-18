@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useGetCourseBranches, useGetCourses, useGetSubjects } from "../api/use-get-details";
-import { useAddSubject } from "../api/use-add-subject";
+import { useAddSubject } from "../api/create/use-add-subject";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { semesterList } from "@/lib/utils";

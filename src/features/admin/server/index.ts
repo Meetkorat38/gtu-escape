@@ -110,6 +110,10 @@ const app = new Hono()
         },
       });
 
+      if(!paper){
+        return c.json({error:"Delete paper failed"})
+      }
+
       return c.json({ success: true, paperId: paper.id });
     }
   )

@@ -26,7 +26,7 @@ export const useAddSubject = () => {
     },
     onSuccess : () => {
         toast.success("Paper craeted")
-        queryClient.invalidateQueries({queryKey:["subjectes"]})
+        queryClient.invalidateQueries({queryKey:["subjects"]})
     },
     onError: (error) => {
       toast.error(error.message);

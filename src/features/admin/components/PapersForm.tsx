@@ -26,7 +26,7 @@ import {
 } from "../api/use-get-details";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useAddPaper } from "../api/use-add-paper";
+import { useAddPaper } from "../api/create/use-add-paper";
 import { toast } from "sonner";
 import { yearList } from "@/lib/utils";
 import DataTableView from "./table/DataTableView";
