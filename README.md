@@ -1,0 +1,7 @@
+- Start reading prisma by video
+- Then implement react-use-query with hono -> taskmate
+- Immplement ui on the lovable dev
+- make changes on overalll ui
+- make an mcp server or create some papers
+- deploy it
+- post it and enjoy

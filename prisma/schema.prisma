@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Course {
+  id       String    @id @default(nanoid())
+  name     Courses
+  branches Branch[]
+  subjects Subject[]
+  papers   Paper[]
+}
+
+model Branch {
+  id         String    @id @default(nanoid())
+  name       String
+  branchCode Int       @unique
+  courseId   String
+  course     Course    @relation(fields: [courseId], references: [id])
+  papers     Paper[]
+  subjects   Subject[]
+
+  @@unique([name, courseId])
+}
+
+model Subject {
+  id          String  @id @default(nanoid())
+  name        String
+  subjectCode String  @unique
+  courseId    String
+  branchId    String
+  semester    String
+  course      Course  @relation(fields: [courseId], references: [id])
+  papers      Paper[]
+  branches    Branch  @relation(fields: [branchId], references: [id])
+
+  @@unique([name, courseId, branchId])
+}
+
+model Paper {
+  id        String @id @default(nanoid())
+  subjectId String
+  branchId  String
+  courseId  String
+  year      Int
+  notionUrl String @db.VarChar(2048)
+  season    Season
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  subject Subject @relation(fields: [subjectId], references: [id])
+  branch  Branch  @relation(fields: [branchId], references: [id])
+  course  Course  @relation(fields: [courseId], references: [id])
+
+  @@unique([subjectId, branchId, courseId, year, season])
+}
+
+enum Courses {
+  Diploma
+  Degree
+}
+
+enum Season {
+  WINTER
+  SUMMER
+}
