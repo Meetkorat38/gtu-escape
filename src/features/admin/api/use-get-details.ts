@@ -77,12 +77,12 @@ export const useGetCourses = () => {
   return query;
 };
 
-export const useGetCourseBranches = (courseId: string) => {
+export const useGetCourseBranches = (courseId: string, options?: { enabled?: boolean }) => {
   // get branches[courseId]
   const query = useQuery({
     queryKey: ["branches", courseId],
     queryFn: async () => {
-      const response = await client.api.admin.branches[":courseId"]["$get"]({
+      const response = await client.api.admin.branches.course[":courseId"]["$get"]({
         param: { courseId },
       });
 
@@ -94,16 +94,17 @@ export const useGetCourseBranches = (courseId: string) => {
 
       return data;
     },
+    enabled: !!courseId && options?.enabled !== false,
   });
   return query;
 };
 
-export const useGetCourseSubjects = (courseId: string) => {
+export const useGetCourseSubjects = (courseId: string, options?: { enabled?: boolean }) => {
   // get subjects[courseId]
   const query = useQuery({
     queryKey: ["subjects", courseId],
     queryFn: async () => {
-      const response = await client.api.admin.subjects[":courseId"]["$get"]({
+      const response = await client.api.admin.subjects.course[":courseId"]["$get"]({
         param: { courseId },
       });
 
@@ -115,6 +116,7 @@ export const useGetCourseSubjects = (courseId: string) => {
 
       return data;
     },
+    enabled: !!courseId && options?.enabled !== false,
   });
   return query;
 };
@@ -161,7 +163,7 @@ export const useGetSingleSubject = (subjectId:string) => {
 
 export const useGetSingleBranch = (branchId:string) => {
   const query = useQuery({
-    queryKey: ["branch", branchId],
+    queryKey: ["branches", branchId],
     queryFn: async () => {
       const response = await client.api.admin.branches[":branchId"]["$get"]({
         param: { branchId },

@@ -1,5 +1,4 @@
-
-import React from 'react';
+"use client"
 import QuestionPaperCard from './QuestionPaperCard';
 import Wrapper from './Wrapper';
 
@@ -67,6 +66,7 @@ const samplePapers = [
 ];
 
 const FeaturedPapers = () => {
+
   return (
     <div className="py-16 bg-gray-50">
       <Wrapper>

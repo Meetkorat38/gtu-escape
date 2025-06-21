@@ -9,7 +9,6 @@ interface SolutionPageProps {
 
 const SolutionPage = async ({ params }: SolutionPageProps) => {
   const solutionId = params.solutionId;
-  console.log("solutionId is : "+ solutionId)
   const data = await notion.getPage(solutionId);
 
   return (

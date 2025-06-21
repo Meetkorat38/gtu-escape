@@ -1,9 +1,9 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
-import { PaperSchema, Season } from "../schemas";
+import { Season, UpdatePaperSchema } from "../schemas";
 import {
   FormControl,
   FormField,
@@ -19,70 +19,59 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  useGetBranches, useGetCourses, useGetPapers,
-  useGetSubjects
+  useGetBranches,
+  useGetCourses,
+  useGetSinglePaper,
+  useGetSubjects,
 } from "../api/use-get-details";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useAddPaper } from "../api/create/use-add-paper";
 import { toast } from "sonner";
 import { yearList } from "@/lib/utils";
-import DataTableView from "./table/DataTableView";
-import { paperColumns } from "./table/columns";
+import { useUpdatePaper } from "../api/update/use-update-paper";
 import { useState } from "react";
-import {useEntityNameById} from "@/features/admin/hooks/useEntityNameById"
+export type EditPaperFormValues = z.infer<typeof UpdatePaperSchema>;
 
 
-export type PaperFormValues = z.infer<typeof PaperSchema>;
+interface EditPaperFormProps {
+  paperId: string, 
+  onClose? : () => void 
+}
 
-export function PapersForm() {
-  const { data: courses, isLoading: isCoursesLoading } = useGetCourses();
-  const {getBranchNameById, getCourseNameById, getSubjectNameById} = useEntityNameById()
-
-  const [courseId, setCourseId] = useState(courses?.data[0].id || "");
-
-  const form = useForm<PaperFormValues>({
-    resolver: zodResolver(PaperSchema),
-    defaultValues: {
-      subjectId: "",
-      branchId: "",
-      courseId: courses?.data[0].id || "",
-      notionUrl: "",
-      season: Season.WINTER,
-      year: 2020,
-    },
-  });
-
+export function EditPaperForm({ paperId, onClose}: EditPaperFormProps) {
+  const [courseId, setCourseId] = useState("");
+  const { data: paper, isLoading: isSinglePaperLoading } =
+    useGetSinglePaper(paperId);
   const { data: allSubjects, isLoading: isAllSubjectsLoading } =
     useGetSubjects();
   const { data: allBranches, isLoading: isAllBranchesLoading } =
     useGetBranches();
-  const { mutate, isPending } = useAddPaper();
-  const { data: papers, isLoading: isPaperLoading } = useGetPapers();
+  const { data: courses, isLoading: isCoursesLoading } = useGetCourses();
+  const { mutate, isPending } = useUpdatePaper();
 
-  const loading =
+  const loading = 
     isAllBranchesLoading ||
     isAllSubjectsLoading ||
-    isCoursesLoading ||
-    isPaperLoading;
+    isSinglePaperLoading ||
+    isCoursesLoading
+ 
 
-  if (loading) {
-    return <p>Loading..</p>;
-  }
+  const form = useForm<EditPaperFormValues>({
+    resolver: zodResolver(UpdatePaperSchema),
+    defaultValues: {
+      subjectId: paper?.data?.subjectId,
+      branchId: paper?.data?.branchId,
+      courseId: paper?.data?.courseId,
+      notionUrl: paper?.data?.notionUrl,
+      season: paper?.data?.season as Season,
+      year: paper?.data?.year as number,
+    },
+  });
 
   const branches = allBranches?.data?.filter((b) => b.courseId === courseId);
   const subjects = allSubjects?.data?.filter((s) => s.courseId === courseId);
 
-
-  const papersView = papers?.data.map((p) => ({
-    ...p,
-    courseId: getCourseNameById(p.courseId),
-    branchId: getBranchNameById(p.branchId),
-    subjectId: getSubjectNameById(p.subjectId),
-    season: p.season as Season,
-  }));
-
-  const onSubmit = (values: PaperFormValues) => {
+  const onSubmit = (values: EditPaperFormValues) => {
     const finalVaues = {
       ...values,
     };
@@ -90,11 +79,12 @@ export function PapersForm() {
     mutate(
       {
         json: finalVaues,
+        param: { paperId },
       },
       {
         onSuccess: () => {
-          form.reset();
-          toast.success("Paper created");
+          toast.success("Paper Updated");
+          onClose?.()
         },
         onError: (error) => {
           toast.error(error.message);
@@ -103,12 +93,15 @@ export function PapersForm() {
     );
   };
 
+  if(loading){
+    return (
+      <p>Loading...</p>
+    )
+  }
+
   return (
     <>
       <Card>
-        <CardHeader>
-          <CardTitle>Add New Paper</CardTitle>
-        </CardHeader>
         <CardContent>
           <FormProvider {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -128,7 +121,7 @@ export function PapersForm() {
                               field.onChange(val);
                               setCourseId(val); // 👈 update state to trigger subject/branch refetch
                             }}
-                            defaultValue={field.value || ""}
+                            value={field.value || ""}
                           >
                             <SelectTrigger className="w-full cursor-pointer">
                               <SelectValue placeholder="Select a course" />
@@ -256,7 +249,7 @@ export function PapersForm() {
                       <FormControl>
                         <Select
                           onValueChange={field.onChange}
-                          defaultValue={field.value.toString()}
+                          defaultValue={field?.value?.toString()}
                         >
                           <SelectTrigger className="w-full cursor-pointer">
                             <SelectValue placeholder="Select a Year" />
@@ -303,17 +296,11 @@ export function PapersForm() {
                 disabled={isPending || loading}
                 className="w-full mt-3 cursor-pointer"
               >
-                {isPending ? "Adding..." : "Add Paper"}
+                {isPending ? "Updating..." : "Update Paper"}
               </Button>
             </form>
           </FormProvider>
         </CardContent>
-        <DataTableView
-          columns={paperColumns}
-          data={papersView ?? []}
-          filterColumn="subjectId"
-          title={"Subjects"}
-        />
       </Card>
     </>
   );

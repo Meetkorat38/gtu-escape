@@ -24,7 +24,7 @@ export const BranchSchema = z.object({
 export const SubjectSchema = z.object({
   id: z.string().optional(),
   name: z.string().min(1, "Subject name cannot be empty."),
-  subjectCode: z.string().min(1, "Subject code cannot be empty."),
+  subjectCode: z.string().min(4, "Subject code must be 4 numbers."),
   courseId: z.string(),
   semester: z.string(),
   branchId: z.string(),
@@ -53,6 +53,8 @@ export const NewPaperSchema = PaperSchema.omit({
 
 
 export const GetOnePaperSchema = z.object({ paperId: z.string() });
+
+export const GetOneSchema = z.object({ id: z.string() });
 
 export const GetOneSubjectSchema = z.object({ subjectId: z.string() });
 

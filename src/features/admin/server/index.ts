@@ -4,6 +4,7 @@ import {
   BranchSchema,
   GetOneBranchSchema,
   GetOnePaperSchema,
+  GetOneSchema,
   GetOneSubjectSchema,
   PaperSchema,
   SubjectSchema,
@@ -95,18 +96,18 @@ const app = new Hono()
     }
   )
   .delete(
-    "/papers/:paperId",
-    zValidator("param", GetOnePaperSchema),
+    "/papers/:id",
+    zValidator("param", GetOneSchema),
     async (c) => {
-      const { paperId } = c.req.valid("param");
+      const { id } = c.req.valid("param");
 
-      if (!paperId) {
+      if (!id) {
         return c.json({ error: "PaperId not founded" });
       }
 
       const paper = await prisma.paper.delete({
         where: {
-          id: paperId,
+          id,
         },
       });
 
@@ -143,7 +144,7 @@ const app = new Hono()
       return c.json({ data: subject });
     }
   )
-  .get("/subjects/:courseId", async (c) => {
+  .get("/subjects/course/:courseId", async (c) => {
     const { courseId } = c.req.param();
 
     const data = await prisma.subject.findMany({
@@ -210,18 +211,18 @@ const app = new Hono()
     }
   )
   .delete(
-    "/subjects/:subjectId",
-    zValidator("param", GetOneSubjectSchema),
+    "/subjects/:id",
+    zValidator("param", GetOneSchema),
     async (c) => {
-      const { subjectId } = c.req.valid("param");
+      const { id } = c.req.valid("param");
 
-      if (!subjectId) {
+      if (!id) {
         return c.json({ error: "SubjectId not founded" });
       }
 
       const subejct = await prisma.subject.delete({
         where: {
-          id: subjectId,
+          id,
         },
       });
 
@@ -255,18 +256,14 @@ const app = new Hono()
       return c.json({ data: branch });
     }
   )
-  .get("/branches/:courseId", async (c) => {
+  .get("/branches/course/:courseId", async (c) => {
     const { courseId } = c.req.param();
 
     const data = await prisma.branch.findMany({
-      where: {
-        courseId,
+      where : {
+        courseId
       },
-      select: {
-        id: true,
-        name: true,
-      },
-    });
+    })
 
     return c.json({ data });
   })
@@ -314,18 +311,18 @@ const app = new Hono()
     }
   )
   .delete(
-    "/branches/:branchId",
-    zValidator("param", GetOneBranchSchema),
+    "/branches/:id",
+    zValidator("param", GetOneSchema),
     async (c) => {
-      const { branchId } = c.req.valid("param");
+      const { id } = c.req.valid("param");
 
-      if (!branchId) {
+      if (!id) {
         return c.json({ error: "BranchId not founded" });
       }
 
       const branch = await prisma.branch.delete({
         where: {
-          id: branchId,
+          id: id,
         },
       });
 

@@ -3,13 +3,15 @@ import React from "react";
 import { BookOpen, Search, Menu } from "lucide-react";
 import Wrapper from "./Wrapper";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
+  const navigate = useRouter()
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 left-0 right-0 z-2  w-full">
       <Wrapper className="flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center">
+        <div className="flex items-center" onDoubleClick={() => navigate.push("/admin")}>
           <Link href={"/"} className="flex justify-between items-center h-16">
             <div className="bg-blue-600 rounded-lg p-2 mr-3">
               <BookOpen className="h-6 w-6 text-white" />

@@ -2,13 +2,18 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { Eye, MoreHorizontal, MoreVertical } from "lucide-react";
+import { Eye } from "lucide-react";
 import { ArrowUpDown } from "lucide-react";
 import { PaperFormValues } from "../PapersForm";
 import { SubjectFormValues } from "../SubjectsForm";
 import { BranchFormValues } from "../BranchesForm";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-
+import RowActions from "../actions/RowActions";
+import { EditPaperForm } from "../edit-paper-form";
+import { useDeletePaper } from "../../api/delete/use-delete-paper";
+import { EditSubjectsForm } from "../edit-subject-form";
+import { useDeleteSubject } from "../../api/delete/use-delete-subject";
+import { EditBrancheForm } from "../edit-branch-form";
+import { useDeleteBranch } from "../../api/delete/use-delete-branch";
 
 export const paperColumns: ColumnDef<PaperFormValues>[] = [
   {
@@ -21,7 +26,7 @@ export const paperColumns: ColumnDef<PaperFormValues>[] = [
   },
   {
     accessorKey: "branchId",
-     header: ({ column }) => {
+    header: ({ column }) => {
       return (
         <Button
           variant="ghost"
@@ -31,7 +36,7 @@ export const paperColumns: ColumnDef<PaperFormValues>[] = [
           Branch
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
   },
   {
@@ -45,6 +50,10 @@ export const paperColumns: ColumnDef<PaperFormValues>[] = [
   {
     accessorKey: "year",
     header: "Year",
+  },
+  {
+    accessorKey: "notionUrl",
+    header: "Notion",
     cell: () => {
       return (
         <Button variant={"outline"} className="flex gap-2 cursor-pointer">
@@ -52,32 +61,23 @@ export const paperColumns: ColumnDef<PaperFormValues>[] = [
           <Eye />
         </Button>
       );
-    }
+    },
   },
   {
     accessorKey: "actions",
     cell: ({ row }) => {
-      const paperId = row.id
- 
+      const paperId = row.original.id!;
+
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(paperId)}
-            >
-              Edit Task
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Delete Task</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
+        <RowActions
+          id={paperId}
+          name="Paper"
+          EditForm={({ id, onClose }) => (
+            <EditPaperForm paperId={id} onClose={onClose} />
+          )}
+          useDelete={useDeletePaper}
+        />
+      );
     },
   },
 ];
@@ -97,7 +97,7 @@ export const subjectColumns: ColumnDef<SubjectFormValues>[] = [
   },
   {
     accessorKey: "name",
-     header: ({ column }) => {
+    header: ({ column }) => {
       return (
         <Button
           variant="ghost"
@@ -107,7 +107,7 @@ export const subjectColumns: ColumnDef<SubjectFormValues>[] = [
           Subject Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
   },
   {
@@ -118,16 +118,21 @@ export const subjectColumns: ColumnDef<SubjectFormValues>[] = [
     accessorKey: "subjectCode",
     header: "Subject Code",
   },
- 
+
   {
     accessorKey: "actions",
-    cell: () => {
+    cell: ({ row }) => {
+      const subjectId = row.original.id!;
+
       return (
-        // <TaskActions id={id} projectId={projectId}>
-        <Button variant={"ghost"} className="size-8 p-0">
-          <MoreVertical className="size-4" />
-        </Button>
-        // </TaskActions>
+        <RowActions
+          id={subjectId}
+          name="Subject"
+          EditForm={({ id, onClose }) => (
+            <EditSubjectsForm subjectId={id} onClose={onClose} />
+          )}
+          useDelete={useDeleteSubject}
+        />
       );
     },
   },
@@ -144,7 +149,7 @@ export const branchColumns: ColumnDef<BranchFormValues>[] = [
   },
   {
     accessorKey: "name",
-     header: ({ column }) => {
+    header: ({ column }) => {
       return (
         <Button
           variant="ghost"
@@ -154,26 +159,29 @@ export const branchColumns: ColumnDef<BranchFormValues>[] = [
           Branch Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
   },
   {
     accessorKey: "branchCode",
     header: "Branch Code",
   },
-   
+
   {
     accessorKey: "actions",
-    cell: () => {
+    cell: ({ row }) => {
+      const branhcId = row.original.id!;
+
       return (
-        // <TaskActions id={id} projectId={projectId}>
-        <Button variant={"ghost"} className="size-8 p-0">
-          <MoreVertical className="size-4" />
-        </Button>
-        // </TaskActions>
+        <RowActions
+          id={branhcId}
+          name="Branch"
+          EditForm={({ id, onClose }) => (
+            <EditBrancheForm branchId={id} onClose={onClose} />
+          )}
+          useDelete={useDeleteBranch}
+        />
       );
     },
   },
 ];
-
-

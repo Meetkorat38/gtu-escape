@@ -1,9 +1,9 @@
 "use client";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { BranchSchema } from "../schemas";
+import { UpdateBranchSchema } from "../schemas";
 import {
   FormControl,
   FormField,
@@ -11,7 +11,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useGetBranches, useGetCourses } from "../api/use-get-details";
+import { useGetCourses, useGetSingleBranch } from "../api/use-get-details";
 import {
   Select,
   SelectContent,
@@ -20,46 +20,51 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { useAddBranch } from "../api/create/use-add-branch";
 import { z } from "zod";
 import { toast } from "sonner";
-import DataTableView from "./table/DataTableView";
-import { branchColumns } from "./table/columns";
-import { useEntityNameById } from "@/features/admin/hooks/useEntityNameById";
+import { useUpdateBranch } from "../api/update/use-update-branch";
 
-export type BranchFormValues = z.infer<typeof BranchSchema>;
+export type EditBranchFormValues = z.infer<typeof UpdateBranchSchema>;
 
-export function BranchesForm() {
+
+interface EditBranchFormProps {
+  branchId: string, 
+  onClose? : () => void 
+}
+
+
+export function EditBrancheForm({branchId, onClose} : EditBranchFormProps) {
   const { data: courses, isLoading: isCoursesLoading } = useGetCourses();
-  const { mutate, isPending } = useAddBranch();
-  const { data: branches } = useGetBranches();
-  const {getCourseNameById} = useEntityNameById()
+  const { mutate, isPending } = useUpdateBranch();
+  const {data:branch , isLoading:isBranchLoading} = useGetSingleBranch(branchId)
 
-  const form = useForm<BranchFormValues>({
-    resolver: zodResolver(BranchSchema),
+  const loading = isBranchLoading || isCoursesLoading
+
+  const form = useForm<EditBranchFormValues>({
+    resolver: zodResolver(UpdateBranchSchema),
     defaultValues: {
-      name: "",
-      branchCode: 1,
+      name: branch && "data" in branch && branch.data ? branch.data.name : "",
+      branchCode: branch && "data" in branch && branch.data ? branch.data.branchCode : 0,
     },
   });
 
-  const branchesView = branches?.data.map((b) => ({
-    ...b,
-    courseId: getCourseNameById(b.courseId),
-  }));
 
-  const onBranchFormSubmit = async (values: BranchFormValues) => {
+  const onBranchFormSubmit = async (values: EditBranchFormValues) => {
     const Finalvalues = {
       ...values,
     };
 
     mutate(
       {
+        param: {
+          branchId
+        },
         json: Finalvalues,
       },
       {
         onSuccess: () => {
-          toast.success("New Branch created");
+          toast.success("Branch Updated");
+          onClose?.()
         },
         onError: ({ message }) => {
           toast.error(message);
@@ -68,12 +73,15 @@ export function BranchesForm() {
     );
   };
 
+  if(loading){
+    return (
+      <p>Loading...</p>
+    )
+  }
+
   return (
     <>
     <Card>
-      <CardHeader>
-        <CardTitle>Add New Branch</CardTitle>
-      </CardHeader>
       <CardContent>
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onBranchFormSubmit)}>
@@ -159,13 +167,12 @@ export function BranchesForm() {
               disabled={isPending}
               className="w-full mt-3 cursor-pointer"
             >
-              {isPending ? "Pending..." : " Add Branch"}
+              {isPending ? "Pending..." : " Update Branch"}
             </Button>
           </form>
         </FormProvider>
       </CardContent>
     </Card>
-      <DataTableView columns={branchColumns} data={branchesView ?? []} filterColumn={"name"} title="Branches"/>
       </>
   );
 }

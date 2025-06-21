@@ -1,7 +1,7 @@
 "use client";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { FormProvider, useForm } from "react-hook-form";
-import { SubjectSchema } from "../schemas";
+import { UpdateSubjectSchema } from "../schemas";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -21,37 +21,39 @@ import {
 } from "@/components/ui/select";
 import {
   useGetBranches, useGetCourses,
-  useGetSubjects
+  useGetSingleSubject
 } from "../api/use-get-details";
-import { useAddSubject } from "../api/create/use-add-subject";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { semesterList } from "@/lib/utils";
-import DataTableView from "./table/DataTableView";
-import { subjectColumns } from "./table/columns";
 import { useState } from "react";
-import { useEntityNameById } from "@/features/admin/hooks/useEntityNameById";
+import { useUpdateSubject } from "../api/update/use-update-subject";
 
-export type SubjectFormValues = z.infer<typeof SubjectSchema>;
+export type UpdateSubjectFormValues = z.infer<typeof UpdateSubjectSchema>;
 
-export function SubjectsForm() {
+
+interface EditPaperFormProps {
+  subjectId: string, 
+  onClose? : () => void 
+}
+
+export function EditSubjectsForm({subjectId, onClose} : EditPaperFormProps) {
   const [courseId, setCourseId] = useState("");
   const { data: courses, isLoading: isCoursesLoading } = useGetCourses();
   const {data:allBranches, isLoading:allBranchesLoading} = useGetBranches();
-  const { data: subjects } = useGetSubjects();
-  const {getCourseNameById, getBranchNameById} = useEntityNameById()
+  const {data:subject , isLoading:isSubjectLoading} = useGetSingleSubject(subjectId)
 
-  const loading = isCoursesLoading || allBranchesLoading
+  const loading = isCoursesLoading || allBranchesLoading || isSubjectLoading
 
-  const { mutate, isPending } = useAddSubject();
+  const { mutate, isPending } = useUpdateSubject();
 
-  const form = useForm<SubjectFormValues>({
-    resolver: zodResolver(SubjectSchema),
+  const form = useForm<UpdateSubjectFormValues>({
+    resolver: zodResolver(UpdateSubjectSchema),
     defaultValues: {
-      name: "",
-      subjectCode: "",
-      semester: "",
-      branchId: "",
+      name: subject && "data" in subject && subject.data ? subject.data.name : "",
+      subjectCode: subject && "data" in subject && subject.data ? subject.data.subjectCode : "",
+      semester: subject && "data" in subject && subject.data ? subject.data.semester : "",
+      branchId: subject && "data" in subject && subject.data ? subject.data.branchId : "",
     },
   });
 
@@ -62,25 +64,23 @@ export function SubjectsForm() {
   }
 
   const branches = allBranches?.data!.filter((b) => b.courseId === courseId)
-  
-  const subjectView = subjects?.data.map((s) => ({
-    ...s,
-    courseId: getCourseNameById(s.courseId),
-    branchId: getBranchNameById(s.branchId),
-  }));
 
-  const onSubjectFormSumbit = async (values: SubjectFormValues) => {
+  const onSubjectFormSumbit = async (values: UpdateSubjectFormValues) => {
     const finalaValues = {
       ...values,
     };
 
     mutate(
       {
+        param:{
+          subjectId
+        },
         json: finalaValues,
       },
       {
         onSuccess: () => {
-          toast.success("Subject Created");
+          toast.success("Subject Updated");
+          onClose?.()
         },
         onError: (error) => {
           toast.error(error.message);
@@ -93,9 +93,6 @@ export function SubjectsForm() {
   return (
     <>
       <Card>
-        <CardHeader>
-          <CardTitle>Add New Subject</CardTitle>
-        </CardHeader>
         <CardContent>
           <FormProvider {...form}>
             <form onSubmit={form.handleSubmit(onSubjectFormSumbit)}>
@@ -245,18 +242,12 @@ export function SubjectsForm() {
                 disabled={isPending}
                 className="w-full mt-3 cursor-pointer"
               >
-                {isPending ? "Pending..." : " Add Subject"}
+                {isPending ? "Pending..." : " Update Subject"}
               </Button>
             </form>
           </FormProvider>
         </CardContent>
       </Card>
-      <DataTableView
-        columns={subjectColumns}
-        data={subjectView ?? []}
-        title={"Subjects"}
-        filterColumn={"name"}
-      />
     </>
   );
 }
