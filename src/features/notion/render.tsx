@@ -10,7 +10,7 @@ import 'katex/dist/katex.min.css';
 import Image from "next/image";
 import { useMemo } from "react";
 import CodeBlock from "./CodeBlock";
-
+import { useTheme } from "next-themes";
 // const Code = dynamic(() =>
 //   import('react-notion-x/build/third-party/code').then((m) => m.Code)
 // )
@@ -31,16 +31,18 @@ const Modal = dynamic(
   }
 )
 
+
 interface NotionPageProps {
   recordMap: ExtendedRecordMap;
   rootPageId: string;
-  darkMode?: boolean;
 }
 export const NotionPage = ({
   recordMap,
   rootPageId,
-  darkMode = true
 }: NotionPageProps) => {
+
+  const {theme} = useTheme()
+  const darkMode = (theme === "dark");
 
   const CodeHighlight = useMemo(() => {
     return(
@@ -54,7 +56,7 @@ export const NotionPage = ({
 
 
   return (
-    <div className="notion__container w-full">
+    <div className="notion__container w-full overflow-x-hidden">
     <NotionRenderer
         recordMap={recordMap}
         fullPage={true}

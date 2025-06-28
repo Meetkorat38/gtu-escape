@@ -51,6 +51,11 @@ export const NewPaperSchema = PaperSchema.omit({
   updatedAt: true,
 });
 
+export const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(1),
+});
+
 
 export const GetOnePaperSchema = z.object({ paperId: z.string() });
 

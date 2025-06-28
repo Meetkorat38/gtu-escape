@@ -5,16 +5,19 @@ import {
   GetOneBranchSchema,
   GetOnePaperSchema,
   GetOneSchema,
-  GetOneSubjectSchema,
-  PaperSchema,
+  GetOneSubjectSchema, PaperSchema,
   SubjectSchema,
   UpdateBranchSchema,
   UpdatePaperSchema,
-  UpdateSubjectSchema,
+  UpdateSubjectSchema
 } from "../schemas";
 import prisma from "@/lib/db";
+import { adminAuthMiddleware } from "./auth";
 
 const app = new Hono()
+  // Apply adminAuthMiddleware to all routes below (except /login)
+  .use("*", adminAuthMiddleware)
+
   // Papers 📃
 
   .get("/papers", async (c) => {
@@ -95,29 +98,25 @@ const app = new Hono()
       return c.json({ data: paper });
     }
   )
-  .delete(
-    "/papers/:id",
-    zValidator("param", GetOneSchema),
-    async (c) => {
-      const { id } = c.req.valid("param");
+  .delete("/papers/:id", zValidator("param", GetOneSchema), async (c) => {
+    const { id } = c.req.valid("param");
 
-      if (!id) {
-        return c.json({ error: "PaperId not founded" });
-      }
-
-      const paper = await prisma.paper.delete({
-        where: {
-          id,
-        },
-      });
-
-      if(!paper){
-        return c.json({error:"Delete paper failed"})
-      }
-
-      return c.json({ success: true, paperId: paper.id });
+    if (!id) {
+      return c.json({ error: "PaperId not founded" });
     }
-  )
+
+    const paper = await prisma.paper.delete({
+      where: {
+        id,
+      },
+    });
+
+    if (!paper) {
+      return c.json({ error: "Delete paper failed" });
+    }
+
+    return c.json({ success: true, paperId: paper.id });
+  })
 
   // Subjects 📚
 
@@ -210,25 +209,21 @@ const app = new Hono()
       return c.json({ data: subject });
     }
   )
-  .delete(
-    "/subjects/:id",
-    zValidator("param", GetOneSchema),
-    async (c) => {
-      const { id } = c.req.valid("param");
+  .delete("/subjects/:id", zValidator("param", GetOneSchema), async (c) => {
+    const { id } = c.req.valid("param");
 
-      if (!id) {
-        return c.json({ error: "SubjectId not founded" });
-      }
-
-      const subejct = await prisma.subject.delete({
-        where: {
-          id,
-        },
-      });
-
-      return c.json({ success: true, subjectId: subejct.id });
+    if (!id) {
+      return c.json({ error: "SubjectId not founded" });
     }
-  )
+
+    const subejct = await prisma.subject.delete({
+      where: {
+        id,
+      },
+    });
+
+    return c.json({ success: true, subjectId: subejct.id });
+  })
 
   // Branches 🪛
 
@@ -260,10 +255,10 @@ const app = new Hono()
     const { courseId } = c.req.param();
 
     const data = await prisma.branch.findMany({
-      where : {
-        courseId
+      where: {
+        courseId,
       },
-    })
+    });
 
     return c.json({ data });
   })
@@ -279,7 +274,7 @@ const app = new Hono()
     });
 
     if (!branch) {
-      return c.json({error:"Branch creation failed"});
+      return c.json({ error: "Branch creation failed" });
     }
 
     return c.json({ data: branch.id });
@@ -303,32 +298,28 @@ const app = new Hono()
         data: {
           courseId,
           name,
-          branchCode
+          branchCode,
         },
       });
 
       return c.json({ data: branch });
     }
   )
-  .delete(
-    "/branches/:id",
-    zValidator("param", GetOneSchema),
-    async (c) => {
-      const { id } = c.req.valid("param");
+  .delete("/branches/:id", zValidator("param", GetOneSchema), async (c) => {
+    const { id } = c.req.valid("param");
 
-      if (!id) {
-        return c.json({ error: "BranchId not founded" });
-      }
-
-      const branch = await prisma.branch.delete({
-        where: {
-          id: id,
-        },
-      });
-
-      return c.json({ success: true, branchId: branch.id });
+    if (!id) {
+      return c.json({ error: "BranchId not founded" });
     }
-  )
+
+    const branch = await prisma.branch.delete({
+      where: {
+        id: id,
+      },
+    });
+
+    return c.json({ success: true, branchId: branch.id });
+  })
 
   // Courses 🏫
 
@@ -341,6 +332,6 @@ const app = new Hono()
     });
 
     return c.json({ data });
-  })
+  });
 
 export default app;
