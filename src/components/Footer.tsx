@@ -1,5 +1,6 @@
 import React from 'react'
 import Wrapper from './Wrapper'
+import Link from 'next/link'
 
 const Footer = () => {
   return (
@@ -15,19 +16,18 @@ const Footer = () => {
             <div>
               <h4 className="font-medium mb-4">Quick Links</h4>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Browse Papers</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Universities</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Subjects</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Latest Papers</a></li>
+                <li><Link href="/papers" className="hover:text-white transition-colors">Browse Papers</Link></li>
+                <li><Link href="/subjects" className="hover:text-white transition-colors">Subjects</Link></li>
+                <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-medium mb-4">Support</h4>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Contact Us</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Submit Paper</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Report Issue</a></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Contact Us</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">FAQ</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Submit Paper</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Report Issue</Link></li>
               </ul>
             </div>
             <div>
@@ -41,15 +41,8 @@ const Footer = () => {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
-            <p>&copy; 2024 PaperHub. All rights reserved.</p>
-            <p>
-              <a
-                href="/admin"
-                className="text-blue-400 underline hover:text-white"
-              >
-                Admin: Add Paper
-              </a>
-            </p>
+            <p>&copy; {new Date().getFullYear()} PaperHub. All rights reserved.</p>
+       
           </div>
         </Wrapper>
       </footer>

@@ -56,6 +56,9 @@ export const loginSchema = z.object({
   password: z.string().min(1),
 });
 
+export const subjectSchemaValues = SubjectSchema.required()
+
+export type subjectValues = z.infer<typeof subjectSchemaValues>
 
 export const GetOnePaperSchema = z.object({ paperId: z.string() });
 

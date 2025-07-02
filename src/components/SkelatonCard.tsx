@@ -16,7 +16,7 @@ export function SkeletonCard({
   return (
     <div className="my-6">
       <div
-        className={`bg-white rounded-xl shadow w-[25vw] flex p-10 flex-col gap-8 ${className}`}
+        className={`bg-white dark:bg-gray-900  rounded-xl shadow w-[80vw]  md:w-[25vw] flex p-10 flex-col gap-8 ${className}`}
       >
         {avatar && (
           <div className="flex justify-center mb-2">

@@ -26,28 +26,30 @@ const Header = () => {
         {/* Navigation */}
         <nav className="hidden md:flex space-x-8">
           <Link
-            href="#"
+            href="/papers"
             className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
           >
-            Browse Papers
+            All Papers
           </Link>
           <Link
-            href="#"
+            href="/subjects"
             className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
           >
-            Universities
+            All Subjects
           </Link>
           <Link
-            href="#"
-            className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-          >
-            Subjects
-          </Link>
-          <Link
-            href="#"
+
+            href="/about"
             className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
           >
             About
+          </Link>
+          <Link
+
+            href="/community"
+            className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+          >
+            Community
           </Link>
         </nav>
 

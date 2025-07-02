@@ -1,9 +1,13 @@
-import React from 'react'
+import BrowseSubjects from "@/components/BrowseSubjects";
+import Wrapper from "@/components/Wrapper";
+import React from "react";
 
 const SubjectsPage = () => {
   return (
-    <div>SubjectsPage</div>
-  )
-}
+    <Wrapper>
+      <BrowseSubjects />
+    </Wrapper>
+  );
+};
 
-export default SubjectsPage
+export default SubjectsPage;

@@ -40,13 +40,13 @@ const SubjectPapersComponent = ({ subjectId }: SubjectPapersComponentProps) => {
     <div className="pt-6">
       <div className="text-center mb-16">
         {/* Title */}
-        <h2 className="text-4xl font-extrabold text-gray-900 tracking-tight mb-3">
+        <h2 className="text-4xl font-extrabold text-gray-900 tracking-tight dark:text-white  mb-3">
           Recently Added <span className="text-blue-600">{subjectName}</span>{" "}
           Papers
         </h2>
 
         {/* Subtitle */}
-        <p className="text-lg text-gray-500 min-w mx-auto">
+        <p className="text-lg text-gray-500 dark:text-white/90 min-w  mx-auto">
           Explore the latest exam papers with detailed solutions and structured
           formats.
         </p>

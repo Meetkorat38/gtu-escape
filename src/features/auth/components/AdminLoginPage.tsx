@@ -22,7 +22,13 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 export default function AdminLoginPage() {
   const router = useRouter();
   const { mutate, isPending } = useAdminAuth();
-  const form = useForm({ resolver: zodResolver(loginSchema) });
+  const form = useForm({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   const onSubmit = async (data: LoginFormValues) => {
     mutate(
@@ -45,11 +51,10 @@ export default function AdminLoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-zinc-900 to-zinc-800 px-4">
       <div className="w-full max-w-sm bg-zinc-900 rounded-xl shadow-lg p-8 border border-zinc-800">
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-white mb-2">
-            Admin Login
-          </h1>
+          <h1 className="text-3xl font-bold text-white mb-2">Admin Login</h1>
           <p className="text-zinc-400 text-sm">
-            Welcome back! Please enter your admin credentials to access the dashboard.
+            Welcome back! Please enter your admin credentials to access the
+            dashboard.
           </p>
         </div>
         <Form {...form}>
@@ -102,7 +107,8 @@ export default function AdminLoginPage() {
           </form>
         </Form>
         <div className="mt-8 text-center text-xs text-zinc-500">
-          &copy; {new Date().getFullYear()} Notion Admin Panel. All rights reserved.
+          &copy; {new Date().getFullYear()} Notion Admin Panel. All rights
+          reserved.
         </div>
       </div>
     </div>

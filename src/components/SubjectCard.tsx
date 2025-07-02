@@ -6,11 +6,11 @@ import {
   BookOpen,
   Building,
   Code,
-  GraduationCap,
+  ExternalLink, GraduationCap
 } from "lucide-react";
-import React from "react";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface SubjectDataProps {
   name: string;
@@ -74,9 +74,14 @@ const SubjectCard = ({ subject }: SubjectCardProps) => {
                   Subject Code
                 </span>
               </div>
+              <div className="flex items-center justify-center gap-2">
               <span className="text-sm font-mono text-gray-600 bg-white/80 px-2 py-1 rounded shadow-sm dark:text-black">
                 {subject.subjectCode}
               </span>
+              <Link href={`https://s3-ap-southeast-1.amazonaws.com/gtusitecirculars/Syallbus/${subject.subjectCode}.pdf`} target="_blank">
+                  <ExternalLink className="text-gray-600 dark:text-white/80 size-5"/>
+              </Link>
+              </div>
             </div>
 
             <div className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-gray-800">

@@ -1,14 +1,14 @@
 
-import React from 'react';
-import { Search, BookOpen, Users, Star } from 'lucide-react';
+import { BookOpen, Users, Star } from 'lucide-react';
 import Wrapper from './Wrapper';
+import SearchBar from './SearchBar';
 
 const Hero = () => {
   return (
     <div className="bg-gradient-to-br from-blue-50 dark:from-gray-900 dark:to-gray-900 dark:border-b dark:border-white/20 to-indigo-100 pt-20 pb-16 ">
       <Wrapper>
         <div className="text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 dark:text-white">
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 dark:text-white select-none">
             Your Complete
             <span className="text-blue-600 block">Question Paper Hub</span>
           </h1>
@@ -17,18 +17,11 @@ const Hero = () => {
             Everything you need for exam preparation, organized by subject and year.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <div className="flex  gap-4 justify-center mb-12">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-              <input
-                type="text"
-                placeholder="Search subjects, universities, or years..."
-                className="pl-10 pr-4 py-3 w-full sm:w-96 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
+              <SearchBar/>
             </div>
-            <button className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">
-              Search Papers
-            </button>
+
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">

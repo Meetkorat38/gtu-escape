@@ -3,8 +3,11 @@ import { useGetPapers } from "@/features/admin/api/use-get-details";
 import QuestionPaperCard from "./QuestionPaperCard";
 import Wrapper from "./Wrapper";
 import SkeletonCard from "./SkelatonCard";
+import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 const FeaturedPapers = () => {
+  const router = useRouter()
   const { data: papers, isLoading, isError } = useGetPapers();
 
   if (isLoading || !papers) {
@@ -40,9 +43,9 @@ const FeaturedPapers = () => {
         </div>
 
         <div className="text-center mt-12">
-          <button className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+          <Button variant={"default"} onClick={() => router.push("/papers")} className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer font-medium">
             Browse All Papers
-          </button>
+          </Button>
         </div>
       </Wrapper>
     </div>
