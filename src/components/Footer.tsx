@@ -8,7 +8,7 @@ const Footer = () => {
         <Wrapper>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-lg font-semibold mb-4">PaperHub</h3>
+              <Link href={"/admin/login"} className="text-lg font-semibold mb-4">PaperHub</Link>
               <p className="text-gray-400 text-sm">
                 Your one-stop destination for engineering question papers and solutions.
               </p>

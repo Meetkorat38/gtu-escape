@@ -26,7 +26,7 @@ const SubjectPapersComponent = ({ subjectId }: SubjectPapersComponentProps) => {
 
   if (isError) {
     toast.error("Errro white fetching papers");
-    return <p>Error while fetching papers</p>;
+    return;
   }
 
   const subjectPaper = papers.data.filter(

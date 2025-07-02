@@ -21,7 +21,7 @@ const FeaturedPapers = () => {
   }
 
   if (isError) {
-    return <p>Error while fetching papers</p>;
+    return;
   }
 
   return (

@@ -20,50 +20,67 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  useGetBranches, useGetCourses,
-  useGetSingleSubject
+  useGetBranches,
+  useGetCourses,
+  useGetSingleSubject,
 } from "../api/use-get-details";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { semesterList } from "@/lib/utils";
 import { useState } from "react";
 import { useUpdateSubject } from "../api/update/use-update-subject";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export type UpdateSubjectFormValues = z.infer<typeof UpdateSubjectSchema>;
 
-
 interface EditPaperFormProps {
-  subjectId: string, 
-  onClose? : () => void 
+  subjectId: string;
+  onClose?: () => void;
 }
 
-export function EditSubjectsForm({subjectId, onClose} : EditPaperFormProps) {
+export function EditSubjectsForm({ subjectId, onClose }: EditPaperFormProps) {
   const [courseId, setCourseId] = useState("");
   const { data: courses, isLoading: isCoursesLoading } = useGetCourses();
-  const {data:allBranches, isLoading:allBranchesLoading} = useGetBranches();
-  const {data:subject , isLoading:isSubjectLoading} = useGetSingleSubject(subjectId)
+  const { data: allBranches, isLoading: allBranchesLoading } = useGetBranches();
+  const { data: subject, isLoading: isSubjectLoading } =
+    useGetSingleSubject(subjectId);
 
-  const loading = isCoursesLoading || allBranchesLoading || isSubjectLoading
+  const loading = isCoursesLoading || allBranchesLoading || isSubjectLoading;
 
   const { mutate, isPending } = useUpdateSubject();
 
   const form = useForm<UpdateSubjectFormValues>({
     resolver: zodResolver(UpdateSubjectSchema),
     defaultValues: {
-      name: subject && "data" in subject && subject.data ? subject.data.name : "",
-      subjectCode: subject && "data" in subject && subject.data ? subject.data.subjectCode : "",
-      semester: subject && "data" in subject && subject.data ? subject.data.semester : "",
-      branchId: subject && "data" in subject && subject.data ? subject.data.branchId : "",
+      name:
+        subject && "data" in subject && subject.data ? subject.data.name : "",
+      subjectCode:
+        subject && "data" in subject && subject.data
+          ? subject.data.subjectCode
+          : "",
+      semester:
+        subject && "data" in subject && subject.data
+          ? subject.data.semester
+          : "",
+      branchId:
+        subject && "data" in subject && subject.data
+          ? subject.data.branchId
+          : "",
     },
   });
 
-  if (loading) {
-    return(
-      <p>Loading...</p>
-    )
-  }
+  
+    if (loading) {
+      return (
+        <div className="flex flex-col gap-7 py-4">
+          {[...Array(5)].map((_, i) => (
+            <Skeleton className="w-[90%] mx-auto h-8" key={i} />
+          ))}
+        </div>
+      );
+    }
 
-  const branches = allBranches?.data!.filter((b) => b.courseId === courseId)
+  const branches = allBranches?.data!.filter((b) => b.courseId === courseId);
 
   const onSubjectFormSumbit = async (values: UpdateSubjectFormValues) => {
     const finalaValues = {
@@ -72,15 +89,15 @@ export function EditSubjectsForm({subjectId, onClose} : EditPaperFormProps) {
 
     mutate(
       {
-        param:{
-          subjectId
+        param: {
+          subjectId,
         },
         json: finalaValues,
       },
       {
         onSuccess: () => {
           toast.success("Subject Updated");
-          onClose?.()
+          onClose?.();
         },
         onError: (error) => {
           toast.error(error.message);
@@ -88,7 +105,6 @@ export function EditSubjectsForm({subjectId, onClose} : EditPaperFormProps) {
       }
     );
   };
-
 
   return (
     <>
@@ -151,12 +167,11 @@ export function EditSubjectsForm({subjectId, onClose} : EditPaperFormProps) {
                             <SelectValue placeholder="Select a Branch" />
                           </SelectTrigger>
                           <SelectContent>
-                            {branches!
-                              .map((branch, index) => (
-                                <SelectItem key={index} value={branch.id}>
-                                  {branch.name || "Unnamed Branch"}
-                                </SelectItem>
-                              ))}
+                            {branches!.map((branch, index) => (
+                              <SelectItem key={index} value={branch.id}>
+                                {branch.name || "Unnamed Branch"}
+                              </SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                       </FormControl>
@@ -240,6 +255,7 @@ export function EditSubjectsForm({subjectId, onClose} : EditPaperFormProps) {
               <Button
                 type="submit"
                 disabled={isPending}
+                variant={"submit"}
                 className="w-full mt-3 cursor-pointer"
               >
                 {isPending ? "Pending..." : " Update Subject"}

@@ -4,9 +4,7 @@ import SolutionHeader from "@/components/SolutionHeader";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 interface SolutionPageProps {
-  params: {
-    solutionId: string;
-  };
+   params: Promise<{ solutionId: string }>;
 }
 
 const SolutionPage = async ({ params }: SolutionPageProps) => {

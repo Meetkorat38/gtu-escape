@@ -14,6 +14,7 @@ import { EditSubjectsForm } from "../edit-subject-form";
 import { useDeleteSubject } from "../../api/delete/use-delete-subject";
 import { EditBrancheForm } from "../edit-branch-form";
 import { useDeleteBranch } from "../../api/delete/use-delete-branch";
+import Link from "next/link";
 
 export const paperColumns: ColumnDef<PaperFormValues>[] = [
   {
@@ -54,12 +55,18 @@ export const paperColumns: ColumnDef<PaperFormValues>[] = [
   {
     accessorKey: "notionUrl",
     header: "Notion",
-    cell: () => {
+    cell: ({ row }) => {
+      const notionUrl = row.original.notionUrl!;
+
       return (
-        <Button variant={"outline"} className="flex gap-2 cursor-pointer">
+        <Link
+          href={`/solutions/${notionUrl}`}
+          target="_blank"
+          className="flex gap-2 cursor-pointer"
+        >
           <p>View</p>
           <Eye />
-        </Button>
+        </Link>
       );
     },
   },

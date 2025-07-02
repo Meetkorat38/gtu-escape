@@ -30,15 +30,15 @@ import { toast } from "sonner";
 import { yearList } from "@/lib/utils";
 import { useUpdatePaper } from "../api/update/use-update-paper";
 import { useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 export type EditPaperFormValues = z.infer<typeof UpdatePaperSchema>;
 
-
 interface EditPaperFormProps {
-  paperId: string, 
-  onClose? : () => void 
+  paperId: string;
+  onClose?: () => void;
 }
 
-export function EditPaperForm({ paperId, onClose}: EditPaperFormProps) {
+export function EditPaperForm({ paperId, onClose }: EditPaperFormProps) {
   const [courseId, setCourseId] = useState("");
   const { data: paper, isLoading: isSinglePaperLoading } =
     useGetSinglePaper(paperId);
@@ -49,12 +49,11 @@ export function EditPaperForm({ paperId, onClose}: EditPaperFormProps) {
   const { data: courses, isLoading: isCoursesLoading } = useGetCourses();
   const { mutate, isPending } = useUpdatePaper();
 
-  const loading = 
+  const loading =
     isAllBranchesLoading ||
     isAllSubjectsLoading ||
     isSinglePaperLoading ||
-    isCoursesLoading
- 
+    isCoursesLoading;
 
   const form = useForm<EditPaperFormValues>({
     resolver: zodResolver(UpdatePaperSchema),
@@ -84,7 +83,7 @@ export function EditPaperForm({ paperId, onClose}: EditPaperFormProps) {
       {
         onSuccess: () => {
           toast.success("Paper Updated");
-          onClose?.()
+          onClose?.();
         },
         onError: (error) => {
           toast.error(error.message);
@@ -93,10 +92,14 @@ export function EditPaperForm({ paperId, onClose}: EditPaperFormProps) {
     );
   };
 
-  if(loading){
+  if (loading) {
     return (
-      <p>Loading...</p>
-    )
+      <div className="flex flex-col gap-7 py-4">
+        {[...Array(7)].map((_, i) => (
+          <Skeleton className="w-[90%] mx-auto h-8" key={i} />
+        ))}
+      </div>
+    );
   }
 
   return (
@@ -294,6 +297,7 @@ export function EditPaperForm({ paperId, onClose}: EditPaperFormProps) {
               <Button
                 type="submit"
                 disabled={isPending || loading}
+                variant={"submit"}
                 className="w-full mt-3 cursor-pointer"
               >
                 {isPending ? "Updating..." : "Update Paper"}

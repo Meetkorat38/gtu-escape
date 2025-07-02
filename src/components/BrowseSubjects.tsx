@@ -19,7 +19,7 @@ const BrowseSubjects = () => {
 
   if (isError) {
     toast.error("Errro white fetching subjects");
-    return <p>Error while fetching subjects</p>;
+    return ;
   }
 
   return (

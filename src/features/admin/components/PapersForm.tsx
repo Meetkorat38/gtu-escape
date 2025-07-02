@@ -19,8 +19,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  useGetBranches, useGetCourses, useGetPapers,
-  useGetSubjects
+  useGetBranches,
+  useGetCourses,
+  useGetPapers,
+  useGetSubjects,
 } from "../api/use-get-details";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -30,14 +32,15 @@ import { yearList } from "@/lib/utils";
 import DataTableView from "./table/DataTableView";
 import { paperColumns } from "./table/columns";
 import { useState } from "react";
-import {useEntityNameById} from "@/features/admin/hooks/useEntityNameById"
-
+import { useEntityNameById } from "@/features/admin/hooks/useEntityNameById";
+import SkeletonCard from "@/components/SkelatonCard";
 
 export type PaperFormValues = z.infer<typeof PaperSchema>;
 
 export function PapersForm() {
   const { data: courses, isLoading: isCoursesLoading } = useGetCourses();
-  const {getBranchNameById, getCourseNameById, getSubjectNameById} = useEntityNameById()
+  const { getBranchNameById, getCourseNameById, getSubjectNameById } =
+    useEntityNameById();
 
   const [courseId, setCourseId] = useState(courses?.data[0].id || "");
 
@@ -67,12 +70,17 @@ export function PapersForm() {
     isPaperLoading;
 
   if (loading) {
-    return <p>Loading..</p>;
+     return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[...Array(6)].map((_, i) => (
+          <SkeletonCard key={i} actions lines={3} />
+        ))}
+      </div>
+    );;
   }
 
   const branches = allBranches?.data?.filter((b) => b.courseId === courseId);
   const subjects = allSubjects?.data?.filter((s) => s.courseId === courseId);
-
 
   const papersView = papers?.data.map((p) => ({
     ...p,
@@ -301,6 +309,7 @@ export function PapersForm() {
               <Button
                 type="submit"
                 disabled={isPending || loading}
+                variant={"submit"}
                 className="w-full mt-3 cursor-pointer"
               >
                 {isPending ? "Adding..." : "Add Paper"}

@@ -20,8 +20,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  useGetBranches, useGetCourses,
-  useGetSubjects
+  useGetBranches,
+  useGetCourses,
+  useGetSubjects,
 } from "../api/use-get-details";
 import { useAddSubject } from "../api/create/use-add-subject";
 import { toast } from "sonner";
@@ -31,17 +32,18 @@ import DataTableView from "./table/DataTableView";
 import { subjectColumns } from "./table/columns";
 import { useState } from "react";
 import { useEntityNameById } from "@/features/admin/hooks/useEntityNameById";
+import SkeletonCard from "@/components/SkelatonCard";
 
 export type SubjectFormValues = z.infer<typeof SubjectSchema>;
 
 export function SubjectsForm() {
   const [courseId, setCourseId] = useState("");
   const { data: courses, isLoading: isCoursesLoading } = useGetCourses();
-  const {data:allBranches, isLoading:allBranchesLoading} = useGetBranches();
+  const { data: allBranches, isLoading: allBranchesLoading } = useGetBranches();
   const { data: subjects } = useGetSubjects();
-  const {getCourseNameById, getBranchNameById} = useEntityNameById()
+  const { getCourseNameById, getBranchNameById } = useEntityNameById();
 
-  const loading = isCoursesLoading || allBranchesLoading
+  const loading = isCoursesLoading || allBranchesLoading;
 
   const { mutate, isPending } = useAddSubject();
 
@@ -55,14 +57,18 @@ export function SubjectsForm() {
     },
   });
 
-  if (loading) {
-    return(
-      <p>Loading...</p>
-    )
-  }
+    if (loading) {
+       return (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[...Array(6)].map((_, i) => (
+            <SkeletonCard key={i} actions lines={3} />
+          ))}
+        </div>
+      );;
+    }
 
-  const branches = allBranches?.data!.filter((b) => b.courseId === courseId)
-  
+  const branches = allBranches?.data!.filter((b) => b.courseId === courseId);
+
   const subjectView = subjects?.data.map((s) => ({
     ...s,
     courseId: getCourseNameById(s.courseId),
@@ -88,7 +94,6 @@ export function SubjectsForm() {
       }
     );
   };
-
 
   return (
     <>
@@ -154,12 +159,11 @@ export function SubjectsForm() {
                             <SelectValue placeholder="Select a Branch" />
                           </SelectTrigger>
                           <SelectContent>
-                            {branches!
-                              .map((branch, index) => (
-                                <SelectItem key={index} value={branch.id}>
-                                  {branch.name || "Unnamed Branch"}
-                                </SelectItem>
-                              ))}
+                            {branches!.map((branch, index) => (
+                              <SelectItem key={index} value={branch.id}>
+                                {branch.name || "Unnamed Branch"}
+                              </SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                       </FormControl>
@@ -242,6 +246,7 @@ export function SubjectsForm() {
               </div>
               <Button
                 type="submit"
+                variant={"submit"}
                 disabled={isPending}
                 className="w-full mt-3 cursor-pointer"
               >

@@ -26,7 +26,7 @@ const BranchSubjectComponent = ({ branchId }: BranchSubjectComponentProps) => {
 
   if (isError) {
     toast.error("Errrr white fetching branch subjects");
-    return <p>Error while fetching papers</p>;
+    return;
   }
 
   const branchSubjects = subjects.data.filter(
@@ -46,12 +46,12 @@ const BranchSubjectComponent = ({ branchId }: BranchSubjectComponentProps) => {
    <div className="pt-6 dark:bg-gray-900 dark:text-white">
     <div className="text-center mb-16">
         {/* Title */}
-        <h2 className="text-4xl font-extrabold text-gray-900 tracking-tight dark:text-white  mb-3 dark:text-white">
+        <h2 className="text-4xl font-extrabold text-gray-900 tracking-tight dark:text-white  mb-3 ">
           Recently Added <span className="text-blue-600">{branchName}</span>{" "}
           Subjects
         </h2>
         {/* Subtitle */}
-        <p className="text-lg text-gray-500 dark:text-white/90 min-w  mx-auto dark:text-white/80">
+        <p className="text-lg text-gray-500 dark:text-white/90 min-w  mx-auto ">
           Explore the latest {branchName.toLowerCase()} subjects with detailed solutions and structured
           formats.
         </p>

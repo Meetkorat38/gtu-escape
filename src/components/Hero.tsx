@@ -29,7 +29,7 @@ const Hero = () => {
               <div className="bg-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg ">
                 <BookOpen className="h-8 w-8 text-blue-600" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-white">10,000+ Papers</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-white">100+ Papers</h3>
               <p className="text-gray-600 dark:text-white/80">Comprehensive collection across all engineering branches</p>
             </div>
             
@@ -37,7 +37,7 @@ const Hero = () => {
               <div className="bg-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg ">
                 <Users className="h-8 w-8 text-blue-600" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-white">500+ Universities</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-white">50+ Subjects</h3>
               <p className="text-gray-600 dark:text-white/80">Papers from top engineering colleges nationwide</p>
             </div>
             

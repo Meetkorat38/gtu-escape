@@ -26,6 +26,7 @@ import { toast } from "sonner";
 import DataTableView from "./table/DataTableView";
 import { branchColumns } from "./table/columns";
 import { useEntityNameById } from "@/features/admin/hooks/useEntityNameById";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export type BranchFormValues = z.infer<typeof BranchSchema>;
 
@@ -79,7 +80,7 @@ export function BranchesForm() {
           <form onSubmit={form.handleSubmit(onBranchFormSubmit)}>
             <div className="flex flex-col gap-4">
               {isCoursesLoading ? (
-                <p>Loading...</p>
+               <Skeleton className="w-full h-9"/>
               ) : (
                 <FormField // Courses
                   control={form.control}
@@ -157,6 +158,7 @@ export function BranchesForm() {
             <Button
               type="submit"
               disabled={isPending}
+              variant={"submit"}
               className="w-full mt-3 cursor-pointer"
             >
               {isPending ? "Pending..." : " Add Branch"}
