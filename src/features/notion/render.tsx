@@ -55,6 +55,8 @@ export const NotionPage = ({
     return null;
   }
 
+  console.log("Record data or data is: ", recordMap)
+  console.log("Root map id is: ", rootPageId)
 
   return (
     <div className="notion__container w-full overflow-x-hidden">
