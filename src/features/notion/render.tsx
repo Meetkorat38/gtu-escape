@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link";
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import { ExtendedRecordMap } from "notion-types";
 import { NotionRenderer } from "react-notion-x";
 
@@ -10,26 +10,27 @@ import 'katex/dist/katex.min.css';
 import Image from "next/image";
 import { useMemo } from "react";
 import CodeBlock from "./CodeBlock";
+import { useTheme } from "next-themes";
 
 // const Code = dynamic(() =>
 //   import('react-notion-x/build/third-party/code').then((m) => m.Code)
 // )
 
-const Collection = dynamic(() =>
-  import('react-notion-x/build/third-party/collection').then(
-    (m) => m.Collection
-  )
-)
-const Equation = dynamic(() =>
-  import('react-notion-x/build/third-party/equation').then((m) => m.Equation)
-)
+// const Collection = dynamic(() =>
+//   import('react-notion-x/build/third-party/collection').then(
+//     (m) => m.Collection
+//   )
+// )
+// const Equation = dynamic(() =>
+//   import('react-notion-x/build/third-party/equation').then((m) => m.Equation)
+// )
 
-const Modal = dynamic(
-  () => import('react-notion-x/build/third-party/modal').then((m) => m.Modal),
-  {
-    ssr: false
-  }
-)
+// const Modal = dynamic(
+//   () => import('react-notion-x/build/third-party/modal').then((m) => m.Modal),
+//   {
+//     ssr: false
+//   }
+// )
 
 
 interface NotionPageProps {
@@ -41,8 +42,10 @@ export const NotionPage = ({
   rootPageId,
 }: NotionPageProps) => {
 
- 
-  
+  const {theme} = useTheme()
+
+  const isDark = theme === "dark"
+   
   const CodeHighlight = useMemo(() => {
     return(
       CodeBlock
@@ -63,7 +66,7 @@ export const NotionPage = ({
     <NotionRenderer
         recordMap={recordMap}
         fullPage={true}
-        darkMode={false}
+        darkMode={isDark}
         rootPageId={rootPageId}
         previewImages={false}
         disableHeader
@@ -71,9 +74,6 @@ export const NotionPage = ({
           nextImage: Image,
           nextLink: Link,
           Code : CodeHighlight,
-          Collection,
-          Equation,
-          Modal
         }}
       />
     </div>
