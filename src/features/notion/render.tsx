@@ -8,9 +8,8 @@ import 'react-notion-x/src/styles.css';
 import 'prismjs/themes/prism-tomorrow.css';
 import 'katex/dist/katex.min.css';
 import Image from "next/image";
-import { useMemo, useEffect, useState } from "react";
+import { useMemo } from "react";
 import CodeBlock from "./CodeBlock";
-import { useTheme } from "next-themes";
 
 // const Code = dynamic(() =>
 //   import('react-notion-x/build/third-party/code').then((m) => m.Code)
@@ -42,10 +41,7 @@ export const NotionPage = ({
   rootPageId,
 }: NotionPageProps) => {
 
-  const {theme} = useTheme()
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
+ 
   
   const CodeHighlight = useMemo(() => {
     return(
@@ -53,9 +49,7 @@ export const NotionPage = ({
     )
   } , [])
 
-  if (!mounted) return null; // Prevent SSR mismatch
-
-  const darkMode = theme === "dark";
+  
 
   if (!recordMap) {
     return null;
@@ -67,7 +61,7 @@ export const NotionPage = ({
     <NotionRenderer
         recordMap={recordMap}
         fullPage={true}
-        darkMode={darkMode}
+        darkMode={false}
         rootPageId={rootPageId}
         previewImages={false}
         disableHeader
