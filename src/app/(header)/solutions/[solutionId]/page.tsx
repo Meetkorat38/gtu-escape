@@ -1,6 +1,6 @@
 import { notion } from "@/lib/notion";
 import { NotionPage } from "@/features/notion";
-import SolutionHeader from "@/components/SolutionHeader";
+// import SolutionHeader from "@/components/SolutionHeader";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 interface SolutionPageProps {
@@ -25,8 +25,8 @@ const SolutionPage = async ({ params }: SolutionPageProps) => {
 
   return (
     <>
-      <SolutionHeader  solutionId={solutionId} />
-      <NotionPage recordMap={data} rootPageId={solutionId} key={solutionId}/>
+      {/* <SolutionHeader  solutionId={solutionId} /> */}
+      <NotionPage recordMap={data}  rootPageId={solutionId} key={solutionId}/>
       <ScrollToTopButton/>
     </>
   );
