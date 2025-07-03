@@ -14,7 +14,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className}  antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <div className="flex flex-col  min-h-screen">
+          <div className="flex flex-col  min-h-screen dark:bg-gray-900">
             <Header />
             {children}
           </div>
