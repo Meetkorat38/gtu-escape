@@ -51,7 +51,7 @@ Coming soon...
 │   └── 📁notion        # Notion integration for rendering solutions
 ├── 📁lib               # Utility functions and database
 ├── 📄globals.css
-├── 📄.env
+├── 📄.env.example
 ```
 
 ---
