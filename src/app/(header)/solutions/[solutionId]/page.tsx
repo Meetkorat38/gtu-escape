@@ -20,6 +20,9 @@ const SolutionPage = async ({ params }: SolutionPageProps) => {
     )
   }
 
+  console.log("Data is getted " , data)
+  console.log("Root ID is getted " , solutionId)
+
   return (
     <>
       <SolutionHeader  solutionId={solutionId} />
