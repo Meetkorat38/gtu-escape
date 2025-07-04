@@ -1,6 +1,6 @@
 import { notion } from "@/lib/notion";
 import { NotionPage } from "@/features/notion";
-import SolutionHeader from "@/components/SolutionHeader";
+// import SolutionHeader from "@/components/SolutionHeader";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 interface SolutionPageProps {
@@ -10,11 +10,23 @@ interface SolutionPageProps {
 const SolutionPage = async ({ params }: SolutionPageProps) => {
   const {solutionId} = await params;
   const data = await notion.getPage(solutionId);
+  if(!data){
+      console.error("Failed to fetch Notion data for", solutionId);
+
+    return (
+      <p>Failed to fetch Notion data for.....
+        <span className="bg-green-500 text-white p-4">{solutionId}</span>
+      </p>
+    )
+  }
+
+  console.log("Data is getted " , data)
+  console.log("Root ID is getted " , solutionId)
 
   return (
     <>
-      <SolutionHeader  solutionId={solutionId} />
-      <NotionPage recordMap={data} rootPageId={solutionId} key={solutionId}/>
+      {/* <SolutionHeader  solutionId={solutionId} /> */}
+      <NotionPage recordMap={data}  rootPageId={solutionId} key={solutionId}/>
       <ScrollToTopButton/>
     </>
   );

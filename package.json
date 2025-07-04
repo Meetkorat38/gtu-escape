@@ -35,7 +35,11 @@
     "next": "15.3.3",
     "next-themes": "^0.4.6",
     "notion-client": "^6.16.0",
+<<<<<<< HEAD
     "notion-utils": "^6.16.0",
+=======
+    "notion-utils": "^7.4.2",
+>>>>>>> 6984e5fbfa6792f3127fcb0e1858a6e671327b00
     "prisma": "^6.9.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
