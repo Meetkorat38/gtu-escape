@@ -99,8 +99,8 @@ export default function AdminLoginPage() {
             />
             <Button
               type="submit"
+              variant={"default"}
               disabled={isPending}
-              className="w-full mt-3 bg-blue-600 hover:bg-blue-700 cursor-pointer text-white font-semibold rounded-lg py-2 transition"
             >
               {isPending ? "Verifying..." : "Login"}
             </Button>

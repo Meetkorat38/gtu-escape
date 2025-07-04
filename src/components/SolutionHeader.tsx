@@ -30,7 +30,7 @@ const SolutionHeader = ({ solutionId }: SolutionHeaderProps) => {
   const subjectName = getSubjectNameById(paper!.subjectId!);
 
   return (
-    <div className="px-0 sm:px-2 dark:pb-1 h-max bg-zinc-100 dark:bg-gray-800 dark:border-b dark:border-white/40">
+    <div className="px-0 py-1 sm:px-2 dark:pb-1 h-max bg-zinc-100 dark:bg-gray-800 dark:border-b dark:border-white/40">
       <Wrapper className="flex flex-row items-center justify-between">
         <Button
           onClick={() => naviagte.back()}

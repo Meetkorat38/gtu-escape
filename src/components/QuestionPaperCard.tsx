@@ -133,7 +133,7 @@ const QuestionPaperCard: React.FC<QuestionPaperCardProps> = ({ paper }) => {
         <Button
           onClick={() => handleViewSolution()}
           variant={"default"}
-          className="bg-blue-600 hover:bg-blue-700 flex items-center justify-center cursor-pointer text-white"
+          className="flex items-center justify-center"
         >
           <span className="relative z-10">View Solution</span>
           <ArrowRight className="w-4 h-4 relative z-10 group-hover/btn:translate-x-1 transition-transform" />

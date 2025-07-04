@@ -43,7 +43,7 @@ const FeaturedPapers = () => {
         </div>
 
         <div className="text-center mt-12">
-          <Button variant={"default"} onClick={() => router.push("/papers")} className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer font-medium">
+          <Button variant={"default"} onClick={() => router.push("/papers")} >
             Browse All Papers
           </Button>
         </div>

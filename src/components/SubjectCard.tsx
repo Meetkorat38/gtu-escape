@@ -112,7 +112,7 @@ const SubjectCard = ({ subject }: SubjectCardProps) => {
           {/* Action Button */}
           <Button
             variant={"default"}
-            className="bg-blue-600 hover:bg-blue-700 text-white cursor-pointer w-full mt-4 flex items-center justify-center"
+            className="flex items-center justify-center"
             onClick={handleClick}
           >
             <span>View Paper</span>

@@ -54,7 +54,10 @@ export default function SubjectSearchDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="default" className="bg-blue-600 hover:bg-blue-700 flex items-center justify-center cursor-pointer text-white w-full sm:max-w-md mx-auto">
+        <Button
+          variant="default"
+          className=" flex items-center justify-center sm:max-w-md mx-auto"
+        >
           <Search className="h-4 w-4 mr-2" />
           Search Subjects...
         </Button>
@@ -79,11 +82,17 @@ export default function SubjectSearchDialog() {
                 key={subject.id}
                 onSelect={() => handleSelect(subject.id)}
               >
-                <div className="flex flex-col">
-                  <span className="font-medium">{subject.name}</span>
-                  <span className="text-xs text-muted-foreground">
-                    {subject.subjectCode}
-                  </span>
+                <div className="flex flex-row items-center justify-between w-full ">
+                  <h2 className="font-medium">{subject.name}</h2>
+                  <div className="flex gap-3">
+                    <h3 className="text-xs text-muted-foreground">
+                      {subject.subjectCode}
+                    </h3>
+                    <span className="w-[1px] text-gray-200 rounded-md bg-gray-200 dark:bg-zinc-600 h-7" />
+                    <h3 className="text-xs text-muted-foreground">
+                      {subject.semester}
+                    </h3>
+                  </div>
                 </div>
               </CommandItem>
             ))}

@@ -1,6 +1,5 @@
 "use client"
 import Link from "next/link";
-// import dynamic from 'next/dynamic';
 import { ExtendedRecordMap } from "notion-types";
 import { NotionRenderer } from "react-notion-x";
 
@@ -11,27 +10,6 @@ import Image from "next/image";
 import { useMemo } from "react";
 import CodeBlock from "./CodeBlock";
 import { useTheme } from "next-themes";
-
-// const Code = dynamic(() =>
-//   import('react-notion-x/build/third-party/code').then((m) => m.Code)
-// )
-
-// const Collection = dynamic(() =>
-//   import('react-notion-x/build/third-party/collection').then(
-//     (m) => m.Collection
-//   )
-// )
-// const Equation = dynamic(() =>
-//   import('react-notion-x/build/third-party/equation').then((m) => m.Equation)
-// )
-
-// const Modal = dynamic(
-//   () => import('react-notion-x/build/third-party/modal').then((m) => m.Modal),
-//   {
-//     ssr: false
-//   }
-// )
-
 
 interface NotionPageProps {
   recordMap: ExtendedRecordMap;
@@ -52,14 +30,6 @@ export const NotionPage = ({
     )
   } , [])
 
-  
-
-  if (!recordMap) {
-    return null;
-  }
-
-  console.log("Record data or data is: ", recordMap)
-  console.log("Root map id is: ", rootPageId)
 
   return (
     <div className="notion__container w-full overflow-x-hidden">
