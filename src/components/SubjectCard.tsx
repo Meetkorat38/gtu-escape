@@ -112,7 +112,7 @@ const SubjectCard = ({ subject }: SubjectCardProps) => {
           {/* Action Button */}
           <Button
             variant={"default"}
-            className="flex items-center justify-center"
+            className="flex items-center justify-center w-full mt-2"
             onClick={handleClick}
           >
             <span>View Paper</span>

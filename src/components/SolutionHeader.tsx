@@ -40,13 +40,13 @@ const SolutionHeader = ({ solutionId }: SolutionHeaderProps) => {
           <ChevronLeft size={4} className="text-black dark:text-white" />
         </Button>
         <div className="flex flex-row items-center gap-2">
-          <h3 className="border-r text-sm md:text-base border-zinc-300 pr-2 dark:text-white/90">
+          <h3 className="border-r text-xs md:text-base border-zinc-300 pr-2 dark:text-white/90">
             {branchName}
           </h3>
-          <h3 className="border-r text-sm md:text-base border-zinc-300 pr-2 dark:text-white/90">
+          <h3 className="border-r text-xs md:text-base border-zinc-300 pr-2 dark:text-white/90">
             {subjectName}
           </h3>
-          <h3 className="dark:text-white/90 text-sm md:text-base ">
+          <h3 className="dark:text-white/90 text-xs md:text-base ">
             {paper!.year}
           </h3>
         </div>

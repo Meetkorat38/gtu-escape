@@ -12,9 +12,8 @@ const Hero = () => {
             Your Complete
             <span className="text-blue-600 block">Question Paper Hub</span>
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto dark:text-white/80">
-            Access numberous of previous year question papers with detailed solutions. 
-            Everything you need for exam preparation, organized by subject and year.
+          <p className="text-base md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto dark:text-white/80">
+            All the GTU papers you forgot to ask your seniors for now with clear solutions, neatly organized by subject and year.
           </p>
           
           <div className="flex  gap-4 justify-center mb-12">

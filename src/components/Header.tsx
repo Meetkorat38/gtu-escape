@@ -1,5 +1,5 @@
 "use client";
-import { BookOpen, Menu } from "lucide-react";
+import { Menu, Rocket } from "lucide-react";
 import Wrapper from "./Wrapper";
 import Link from "next/link";
 import { ThemeButton } from "./theme-button";
@@ -24,12 +24,12 @@ const Header = () => {
         <div className="flex items-center">
           <Link href={"/"} className="flex justify-between items-center h-16 cursor-pointer" onClick={() => setSidebarOpen(false)} >
             <div className="bg-blue-600 rounded-lg p-2 mr-3">
-              <BookOpen className="h-6 w-6 text-white" />
+              <Rocket className="size-6 text-white"/>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">PaperHub</h1>
+              <h1 className="text-xl font-bold text-gray-900 leading-relaxed">Gtu <span className="leading-relaxed font-mono">Escape</span></h1>
               <p className="text-xs text-gray-500">
-                Engineering Question Papers
+                Survive GTU, One Paper at a Time
               </p>
             </div>
           </Link>
@@ -71,8 +71,8 @@ const Header = () => {
           <SheetHeader className="border-b border-gray-200 dark:border-gray-700 px-6 py-4">
             <SheetTitle>
               <div className="flex items-center">
-                <BookOpen className="h-6 w-6 text-blue-600 mr-2" />
-                <span className="font-bold text-lg text-gray-900 dark:text-white">PaperHub</span>
+                <Rocket className="h-6 w-6 text-blue-600 mr-2" />
+                <span className="font-bold leading-relaxed text-lg text-gray-900 dark:text-white">Gtu Escape</span>
               </div>
             </SheetTitle>
             <SheetClose />

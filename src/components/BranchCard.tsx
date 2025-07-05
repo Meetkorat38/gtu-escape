@@ -88,7 +88,7 @@ const BranchCard = ({ branch, index = 0 }: BranchCardProps) => {
         <Button
           onClick={handleClick}
           variant={"default"}
-          className="bg-blue-600 flex items-center justify-center cursor-pointer text-white hover:bg-blue-700"
+          className="flex items-center justify-center w-full"
         >
           <span className="relative z-10">View Papers</span>
           <ArrowRight className="w-4 h-4 relative z-10 group-hover/btn:translate-x-1 transition-transform" />
