@@ -75,9 +75,9 @@ const SubjectCard = ({ subject }: SubjectCardProps) => {
                 </span>
               </div>
               <div className="flex items-center justify-center gap-2">
-              <span className="text-sm font-mono text-gray-600 bg-white/80 px-2 py-1 rounded shadow-sm dark:text-black">
+              <h3 className="text-sm font-mono text-gray-600 bg-white/80 px-2 py-1 rounded shadow-sm dark:text-black">
                 {subject.subjectCode}
-              </span>
+              </h3>
               <Link href={`https://s3-ap-southeast-1.amazonaws.com/gtusitecirculars/Syallbus/${subject.subjectCode}.pdf`} target="_blank">
                   <ExternalLink className="text-gray-600 dark:text-white/80 size-5"/>
               </Link>
@@ -91,9 +91,9 @@ const SubjectCard = ({ subject }: SubjectCardProps) => {
                   Branch
                 </span>
               </div>
-              <span className="text-sm font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
                 {branchName}
-              </span>
+              </h3>
             </div>
 
             <div className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-gray-800">
@@ -103,9 +103,9 @@ const SubjectCard = ({ subject }: SubjectCardProps) => {
                   Course
                 </span>
               </div>
-              <span className="text-sm font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
                 {courseName}
-              </span>
+              </h3>
             </div>
           </div>
 

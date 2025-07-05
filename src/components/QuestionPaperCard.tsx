@@ -86,9 +86,9 @@ const QuestionPaperCard: React.FC<QuestionPaperCardProps> = ({ paper }) => {
               <Scroll className="w-4 h-4 text-gray-400 dark:text-white/90" />
               <span className="text-sm font-medium text-gray-500 dark:text-white/90">Branch</span>
             </div>
-            <span className={`text-sm font-semibold capitalize`}>
+            <h3 className={`text-sm font-semibold capitalize`}>
               {branchName}
-            </span>
+            </h3>
           </div>
 
           <div className="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-800">
@@ -98,11 +98,11 @@ const QuestionPaperCard: React.FC<QuestionPaperCardProps> = ({ paper }) => {
                 Subject Code
               </span>
             </div>
-            <span
+            <h3
               className={`text-sm font-semibold capitalize bg-zinc-100 text-black p-2 rounded-sm `}
             >
               {subject.subjectCode}
-            </span>
+            </h3>
           </div>
 
           <div className="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-800">
@@ -119,12 +119,12 @@ const QuestionPaperCard: React.FC<QuestionPaperCardProps> = ({ paper }) => {
 
               <span className="w-[1px] text-gray-200 rounded-md bg-gray-200 h-7" />
 
-              <span
+              <h3
                 className={`${seasonTheme?.color} text-xs p-1 font-semibold capitalize rounded-sm flex items-center gap-3`}
               >
                 {paper.season}
                 {SeasonIcon && <SeasonIcon />}
-              </span>
+              </h3>
             </h2>
           </div>
         </div>

@@ -105,9 +105,9 @@ export const AboutPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+    <main className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       {/* Hero Section */}
-      <section className="bg-white dark:bg-gray-900 py-20 px-6">
+      <header className="bg-white dark:bg-gray-900 py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center space-x-2 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 rounded-full px-4 py-2 mb-8">
             <BookOpen className="w-4 h-4 text-blue-600" />
@@ -132,24 +132,24 @@ export const AboutPage = () => {
             </button>
           </div>
         </div>
-      </section>
+      </header>
 
       {/* Stats Section */}
-      <section className="py-16 px-6 bg-gray-50 dark:bg-gray-900">
+      <section className="py-16 px-6 bg-gray-50 dark:bg-gray-900" aria-labelledby="stats-heading">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+          <header className="text-center mb-12">
+            <h2 id="stats-heading" className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               Trusted by Thousands
             </h2>
             <p className="text-gray-600 dark:text-white/80">
               Our platform speaks for itself through these numbers
             </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          </header>
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" role="list">
             {stats.map((stat, index) => {
               const IconComponent = stat.icon;
               return (
-                <div
+                <li
                   key={index}
                   className="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow"
                 >
@@ -164,49 +164,49 @@ export const AboutPage = () => {
                   <div className="text-gray-600 dark:text-white/80 font-medium">
                     {stat.label}
                   </div>
-                </div>
+                </li>
               );
             })}
-          </div>
+          </ul>
         </div>
       </section>
 
       {/* Mission Section */}
-      <section className="py-16 px-6 bg-white dark:bg-gray-900">
+      <section className="py-16 px-6 bg-white dark:bg-gray-900" aria-labelledby="mission-heading">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <article>
               <div className="inline-flex items-center space-x-2 bg-purple-50 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-700 rounded-full px-4 py-2 mb-6">
                 <Target className="w-4 h-4 text-purple-600" />
                 <span className="text-sm font-medium text-purple-700 dark:text-purple-300">
                   Our Mission
                 </span>
               </div>
-              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">
+              <h2 id="mission-heading" className="text-4xl font-bold text-gray-900 dark:text-white mb-6">
                 Empowering Students Through Technology
               </h2>
               <p className="text-lg text-gray-600 dark:text-white/80 leading-relaxed mb-8">
                 We&apos;re on a mission to democratize access to quality educational resources,
                 making academic excellence achievable for every student, everywhere.
               </p>
-              <div className="space-y-3">
+              <ul className="space-y-3" role="list">
                 {achievements.map((achievement, index) => (
-                  <div key={index} className="flex items-center space-x-3">
+                  <li key={index} className="flex items-center space-x-3">
                     <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0" />
                     <span className="text-gray-700 dark:text-white/80">{achievement}</span>
-                  </div>
+                  </li>
                 ))}
-              </div>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
+              </ul>
+            </article>
+            <aside className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                 Why Choose Us?
               </h3>
-              <div className="space-y-6">
+              <ul className="space-y-6" role="list">
                 {features.map((feature, index) => {
                   const IconComponent = feature.icon;
                   return (
-                    <div key={index} className="flex items-start space-x-4">
+                    <li key={index} className="flex items-start space-x-4">
                       <div
                         className={`w-10 h-10 ${feature.bg} rounded-lg flex items-center justify-center flex-shrink-0`}
                       >
@@ -220,31 +220,31 @@ export const AboutPage = () => {
                           {feature.description}
                         </p>
                       </div>
-                    </div>
+                    </li>
                   );
                 })}
-              </div>
-            </div>
+              </ul>
+            </aside>
           </div>
         </div>
       </section>
 
       {/* Values Section */}
-      <section className="py-16 px-6 bg-gray-50 dark:bg-gray-900">
+      <section className="py-16 px-6 bg-gray-50 dark:bg-gray-900" aria-labelledby="values-heading">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+          <header className="text-center mb-12">
+            <h2 id="values-heading" className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               Our Core Values
             </h2>
             <p className="text-gray-600 dark:text-white/80 max-w-2xl mx-auto">
               These principles guide everything we do and shape the experience we create for our users
             </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          </header>
+          <ul className="grid md:grid-cols-3 gap-8" role="list">
             {values.map((value, index) => {
               const IconComponent = value.icon;
               return (
-                <div
+                <li
                   key={index}
                   className="bg-white dark:bg-gray-800 rounded-xl p-8 text-center shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow"
                 >
@@ -259,27 +259,27 @@ export const AboutPage = () => {
                   <p className="text-gray-600 dark:text-white/80 leading-relaxed">
                     {value.description}
                   </p>
-                </div>
+                </li>
               );
             })}
-          </div>
+          </ul>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section className="py-16 px-6 bg-white dark:bg-gray-900">
+      <section className="py-16 px-6 bg-white dark:bg-gray-900" aria-labelledby="contact-heading">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+          <header className="text-center mb-12">
+            <h2 id="contact-heading" className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               Get In Touch
             </h2>
             <p className="text-gray-600 dark:text-white/80">
               Ready to transform your academic journey? We&apos;d love to hear from you
             </p>
-          </div>
+          </header>
           <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
             <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="text-center">
+              <address className="not-italic text-center">
                 <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                   <Mail className="w-6 h-6 text-white" />
                 </div>
@@ -287,14 +287,14 @@ export const AboutPage = () => {
                 <div className="text-gray-900 dark:text-white font-semibold">
                   gtusolutions38@gmail.com
                 </div>
-              </div>
-              <div className="text-center">
+              </address>
+              <address className="not-italic text-center">
                 <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                   <MapPin className="w-6 h-6 text-white" />
                 </div>
                 <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Live In</div>
                 <div className="text-gray-900 dark:text-white font-semibold">Ahmedabad</div>
-              </div>
+              </address>
             </div>
             <div className="text-center">
               <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2 mx-auto">
@@ -305,6 +305,6 @@ export const AboutPage = () => {
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 };

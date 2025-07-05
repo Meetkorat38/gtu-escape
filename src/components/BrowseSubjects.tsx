@@ -26,9 +26,9 @@ const BrowseSubjects = () => {
     <div className="pt-6">
       <div className="text-center mb-16">
         {/* Title */}
-        <h2 className="text-4xl font-extrabold text-gray-900 tracking-tight dark:text-white  mb-3">
+        <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight dark:text-white  mb-3">
           Browse All <span className="text-blue-600">Subjects</span>
-        </h2>
+        </h1>
 
         {/* Subtitle */}
         <p className="text-lg text-gray-500 dark:text-white/90 min-w  mx-auto">

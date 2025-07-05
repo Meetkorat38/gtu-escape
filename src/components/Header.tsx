@@ -27,7 +27,7 @@ const Header = () => {
               <Rocket className="size-6 text-white"/>
             </div>
             <div>
-              <h1 className=" text-base sm:text-xl font-bold text-gray-900 leading-relaxed">GTU <span className="leading-relaxed font-mono">Solutions</span></h1>
+              <h2 className=" text-base sm:text-xl font-bold text-gray-900 leading-relaxed">GTU <span className="leading-relaxed font-mono">Solutions</span></h2>
               <p className="text-xs text-gray-500">
                 Survive GTU, One Paper at a Time
               </p>

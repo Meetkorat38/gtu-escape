@@ -1,10 +1,10 @@
 "use client";
 import { useEntityNameById } from "@/features/admin/hooks/useEntityNameById";
-import React from "react";
 import QuestionPaperCard from "./QuestionPaperCard";
 import { useGetPapers } from "@/features/admin/api/use-get-details";
 import SkeletonCard from "./SkelatonCard";
 import { toast } from "sonner";
+import PageHeading from "./PageHeading";
 
 interface SubjectPapersComponentProps {
   subjectId: string;
@@ -38,27 +38,8 @@ const SubjectPapersComponent = ({ subjectId }: SubjectPapersComponentProps) => {
 
   return (
     <div className="pt-6">
-      <div className="text-center mb-16">
-        {/* Title */}
-        <h2 className="text-4xl font-extrabold text-gray-900 tracking-tight dark:text-white  mb-3">
-          Recently Added <span className="text-blue-600">{subjectName}</span>{" "}
-          Papers
-        </h2>
+          <PageHeading name={subjectName} solutionName="Solutions" solutionNumber={avvailablePapers} key={subjectName}/>
 
-        {/* Subtitle */}
-        <p className="text-lg text-gray-500 dark:text-white/90 min-w  mx-auto">
-          Explore the latest exam papers with detailed solutions and structured
-          formats.
-        </p>
-
-        {/* Stats */}
-        <div className="mt-6 inline-flex items-center justify-center gap-2 bg-zinc-100 rounded-md px-4 py-2 text-sm font-medium text-gray-800">
-          <span>Available Solutions:</span>
-          <span className="text-blue-600 font-bold text-base">
-            {avvailablePapers}
-          </span>
-        </div>
-      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {subjectPaper.map((paper) => (
