@@ -10,8 +10,8 @@ import { useState } from "react";
 const navLinks = [
   { href: "/papers", label: "All Papers" },
   { href: "/subjects", label: "All Subjects" },
-  { href: "/about", label: "About" },
   { href: "/community", label: "Community" },
+  { href: "/about", label: "About" },
 ];
 
 const Header = () => {
@@ -27,7 +27,7 @@ const Header = () => {
               <Rocket className="size-6 text-white"/>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900 leading-relaxed">Gtu <span className="leading-relaxed font-mono">Escape</span></h1>
+              <h1 className=" text-base sm:text-xl font-bold text-gray-900 leading-relaxed">GTU <span className="leading-relaxed font-mono">Solutions</span></h1>
               <p className="text-xs text-gray-500">
                 Survive GTU, One Paper at a Time
               </p>
@@ -72,7 +72,7 @@ const Header = () => {
             <SheetTitle>
               <div className="flex items-center">
                 <Rocket className="h-6 w-6 text-blue-600 mr-2" />
-                <span className="font-bold leading-relaxed text-lg text-gray-900 dark:text-white">Gtu Escape</span>
+                <span className="font-bold leading-relaxed text-base sm:text-lg text-gray-900 dark:text-white">GTU Solutions</span>
               </div>
             </SheetTitle>
             <SheetClose />

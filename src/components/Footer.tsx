@@ -8,7 +8,7 @@ const Footer = () => {
         <Wrapper>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <Link href={"/admin/login"} className="text-lg font-semibold mb-4">Gtu Escpae</Link>
+              <Link href={"/admin/login"} className="text-lg font-semibold mb-4">Gtu Solutions</Link>
               <p className="text-gray-400 text-sm">
                 Your one-stop destination for engineering question papers and solutions.
               </p>
@@ -42,7 +42,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
-            <p>&copy; {new Date().getFullYear()} GTU Escape. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} GTU Solutions. All rights reserved.</p>
        
           </div>
         </Wrapper>

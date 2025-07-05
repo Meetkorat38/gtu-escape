@@ -16,16 +16,16 @@ const SolutionHeader = ({ solutionId }: SolutionHeaderProps) => {
   const { data: papers, isLoading, isError } = useGetPapers();
 
   const { getSubjectNameById, getBranchNameById } = useEntityNameById();
-  
+
   if (isLoading) {
     return <Skeleton className="min-w-screen h-8" />;
   }
-  
+
   if (isError || !papers) {
     notFound();
   }
-  
-  const paper = papers?.data.find((paper) => paper.notionUrl === solutionId)
+
+  const paper = papers?.data.find((paper) => paper.notionUrl === solutionId);
   const branchName = getBranchNameById(paper!.branchId!);
   const subjectName = getSubjectNameById(paper!.subjectId!);
 
@@ -39,16 +39,14 @@ const SolutionHeader = ({ solutionId }: SolutionHeaderProps) => {
         >
           <ChevronLeft size={4} className="text-black dark:text-white" />
         </Button>
-        <div className="flex flex-row items-center gap-2">
-          <h3 className="border-r text-xs md:text-base border-zinc-300 pr-2 dark:text-white/90">
+        <div className="flex flex-row items-center gap-2 text-[10px] sm:text-xs md:text-base">
+          <h3 className="border-r  border-zinc-300 pr-1 md:pr-2 dark:text-white/90">
             {branchName}
           </h3>
-          <h3 className="border-r text-xs md:text-base border-zinc-300 pr-2 dark:text-white/90">
+          <h3 className="border-r  border-zinc-300 pr-1 md:pr-2 dark:text-white/90">
             {subjectName}
           </h3>
-          <h3 className="dark:text-white/90 text-xs md:text-base ">
-            {paper!.year}
-          </h3>
+          <h3 className="dark:text-white/90  ">{paper!.year}</h3>
         </div>
       </Wrapper>
     </div>

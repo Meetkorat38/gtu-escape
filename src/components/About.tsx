@@ -65,7 +65,7 @@ export const AboutPage = () => {
     {
       icon: Globe,
       title: "Always Available",
-      description: "24/7 access from anywhere with 99.9% uptime guarantee.",
+      description: "24/7 access from anywhere with 99.9% uptime.",
       color: "text-blue-600",
       bg: "bg-blue-50 dark:bg-blue-900/30",
     },
@@ -285,7 +285,7 @@ export const AboutPage = () => {
                 </div>
                 <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Email Us</div>
                 <div className="text-gray-900 dark:text-white font-semibold">
-                  meettemp38@gmail.com
+                  gtusolutions38@gmail.com
                 </div>
               </div>
               <div className="text-center">
