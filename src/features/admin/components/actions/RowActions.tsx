@@ -27,7 +27,10 @@ const RowActions = ({ id, name, EditForm, useDelete }: RowActionsProps) => {
     deleteEntity(
       { param: { id } },
       {
-        onSuccess: () => toast.success(`${name} Deleted`),
+        onSuccess: () => {
+          toast.success(`${name} Deleted`)
+          setConfirmOpen(false)
+        },
         onError: (error) => toast.error(error.message),
       }
     );

@@ -6,6 +6,8 @@ import {
   PaperclipIcon,
   CalendarRange,
   Scroll,
+  Download,
+  ExternalLink,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
@@ -13,7 +15,8 @@ import SkeletonCard from "./SkelatonCard";
 import { useGetSubjects } from "@/features/admin/api/use-get-details";
 import { useEntityNameById } from "@/features/admin/hooks/useEntityNameById";
 import { getSeasonTheme } from "@/lib/utils";
-import { Season } from "@/features/admin/schemas";
+import { CourseTypeName, Season } from "@/features/admin/schemas";
+import Link from "next/link";
 
 interface QuestionPaperProps {
   id: string;
@@ -49,6 +52,11 @@ const QuestionPaperCard: React.FC<QuestionPaperCardProps> = ({ paper }) => {
   const handleViewSolution = () => {
     navigate.push(`/solutions/${paper.notionUrl}`);
   };
+
+  const courseNameForUrl = courseName === CourseTypeName.Diploma ? "DE" : CourseTypeName.Degree ? "BE" : ""
+  const getSeason = `${paper.season.charAt(0).toUpperCase()}${paper.year}`
+
+  const paperUrl = `https://www.gtu.ac.in/uploads/${getSeason}/${courseNameForUrl}/${subject.subjectCode}.pdf`
 
   return (
     <div
@@ -103,6 +111,23 @@ const QuestionPaperCard: React.FC<QuestionPaperCardProps> = ({ paper }) => {
             >
               {subject.subjectCode}
             </h3>
+          </div>
+
+          <div className="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-800">
+            <div className="flex items-center space-x-2">
+              <Download className="w-4 h-4 text-gray-400 dark:text-white/90" />
+              <span className="text-sm font-medium text-gray-500 dark:text-white/90">
+                Download Paper
+              </span>
+            </div>
+            <Link
+              href={paperUrl}
+              target="_blank"
+              className={`text-sm font-semibold capitalize bg-zinc-100 text-black p-1 rounded-sm flex gap-2`}
+            >
+              <span>Download</span>
+              <ExternalLink className="size-5"/>
+            </Link>
           </div>
 
           <div className="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-800">
